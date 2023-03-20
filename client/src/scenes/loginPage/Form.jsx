@@ -62,8 +62,8 @@ const Form = () => {
             formData.append(value, values[value]);
         }
         formData.append("picturePath", values.picture.name);
-        const savedUserResponse = await fetch (
-            "http:://localhost:3001/auth/register",
+        const savedUserResponse = await fetch(
+            "http://localhost:3001/auth/register",
             {
                 method: "POST",
                 body: formData,
@@ -79,11 +79,14 @@ const Form = () => {
     };
 
     const login = async (values, onSubmitProps) => {
-        const loggedInResponse = await fetch("http://localhost:3001/auth/login", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringfy(values)
-        });
+        const loggedInResponse = await fetch(
+            "http://localhost:3001/auth/login", 
+            {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(values),
+            }
+        );
 
         const loggedIn = await loggedInResponse.json();
         onSubmitProps.resetForm();
@@ -136,7 +139,7 @@ const Form = () => {
                                     label="First Name"
                                     onBlur={handleBlur}
                                     onChange={handleChange}
-                                    value={values.firstName}
+                                    value={values.firstName || ""}
                                     name="firstName"
                                     error={
                                         Boolean(touched.firstName) && Boolean(errors.firstName)
@@ -146,9 +149,9 @@ const Form = () => {
                                 />
                                 <TextField
                                     label="Last Name"
-                                    onBlue={handleBlur}
+                                    onBlur={handleBlur}
                                     onChange={handleChange}
-                                    value={values.lastName}
+                                    value={values.lastName || ""}
                                     name="lastName"
                                     error={
                                         Boolean(touched.lastname) && Boolean(errors.lastName)
@@ -160,7 +163,7 @@ const Form = () => {
                                     label="Location"
                                     onBlur={handleBlur}
                                     onChange={handleChange}
-                                    value={values.location}
+                                    value={values.location || ""}
                                     name="location"
                                     error={
                                         Boolean(touched.location) && Boolean(errors.location)
@@ -172,7 +175,7 @@ const Form = () => {
                                     label="Occupation"
                                     onBlur={handleBlur}
                                     onChange={handleChange}
-                                    value={values.occupation}
+                                    value={values.occupation || ""}
                                     name="occupation"
                                     error={
                                         Boolean(touched.occupation) && Boolean(errors.occupation)
@@ -184,10 +187,10 @@ const Form = () => {
                                     gridColumn="span 4"
                                     border={`1px solid ${palette.neutral.medium}`}
                                     borderRadius="5px"
-                                    p="1ream"
+                                    p="1rem"
                                 >
                                     <Dropzone
-                                        acceptedFiles=".jpg, .jpeg, .png"
+                                        acceptedFiles=".jpg,.jpeg,.png"
                                         multiple={false}
                                         onDrop={(acceptedFiles) =>
                                                 setFieldValue("picture", acceptedFiles[0])
@@ -220,7 +223,7 @@ const Form = () => {
                             label="Email"
                             onBlur={handleBlur}
                             onChange={handleChange}
-                            value={values.email}
+                            value={values.email || ""}
                             name="email"
                             error={
                                 Boolean(touched.email) && Boolean(errors.email)
@@ -233,9 +236,9 @@ const Form = () => {
                             type="password"
                             onBlur={handleBlur}
                             onChange={handleChange}
-                            value={values.password}
+                            value={values.password || ""}
                             name="password"
-                            onError={
+                            error={
                                 Boolean(touched.password) && Boolean(errors.password)
                             }
                             helperText={touched.password && errors.password}
